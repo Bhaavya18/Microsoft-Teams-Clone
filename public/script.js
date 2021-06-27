@@ -40,7 +40,7 @@ const addVideo = (video, stream) => {
     video.play();
   });
   video.autoplay=true;
-  //video.muted=true;
+  video.muted=true;
   videoDisplay.append(video);
 };
 timer();
