@@ -34,15 +34,13 @@ const connectToNewUser = (userid, stream) => {
     addVideo(video,remoteStream);
   });
 }
-const addVideo = (video, stream) => {
-  video.srcObject = stream; //video to be streamed
-  video.addEventListener("onloadedmetadata", function() { //when metadata(duration,dimensions) of video is loaded then, play video
-    video.play();
-  });
-  video.autoplay=true;
-  video.muted=true;
-  videoDisplay.append(video);
-};
+function addVideo(video, stream) {
+  video.srcObject = stream;//video to be streamed
+  video.addEventListener('loadedmetadata', () => {//when metadata(duration,dimensions) of video is loaded then, play video
+    video.play()
+  })
+  videoDisplay.append(video)
+}
 timer();
 function timer(){
 var date=new Date();
