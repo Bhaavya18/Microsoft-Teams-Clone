@@ -14,9 +14,11 @@ navigator.mediaDevices.getUserMedia({
 }).then(stream => {
   myVideoStream=stream;
   addVideo(myVideo, stream);
+  myVideo.muted=true;
+  //console.log(myVideoStream.getAudioTracks());
   peer.on('call', (call) => {
     call.answer(stream);
-    console.log("hello");
+    //console.log("hello");
     const video = document.createElement('video')
     call.on('stream', (userVideoStream) => {
       addVideo(video, userVideoStream)
@@ -64,7 +66,7 @@ function addVideo(video, stream) {
   video.addEventListener('loadedmetadata', () => { //when metadata(duration,dimensions) of video is loaded then, play video
     video.play()
   })
-  // video.volume = 0;
+  video.volume = 0.9;
   // video.muted = 0;
   videoDisplay.append(video)
 }
