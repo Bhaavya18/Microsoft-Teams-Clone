@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Teams</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    welcome to home
+    <button class="start" onclick="startMeeting()">Start Meeting</button>
+    <script type="text/javascript">
+      const ROOM_ID = "<%= roomid %>";
+      function startMeeting(){
+        location.assign(`/${ROOM_ID}`);
+      }
+    </script>
+  </body>
+</html>

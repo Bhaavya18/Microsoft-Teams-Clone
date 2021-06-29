@@ -12,7 +12,7 @@ app.set('view engine','ejs');
 app.use(express.static("public"));
 app.get('/',function(req,res){
   const rid=uuidv4();//unique room id
-  res.redirect(`/${rid}`);
+  res.render('home',{roomid:rid});
   //res.render('room',{roomid:rid});
 });
 app.get('/:roomid',function(req,res){
@@ -23,6 +23,15 @@ io.on('connection',function(socket){//handshake pipeline for bidirectional commu
   //  console.log(roomid);
     socket.join(roomid);
     socket.broadcast.to(roomid).emit('user-connected',userid);//braodcast will emit message to all the clients except to the new user
+    socket.on('message',function(message){
+      io.to(roomid).emit('createMessage',message);
+    });
+    socket.on('force-disconnect',function(){
+      socket.broadcast.to(roomid).emit('user-disconnected',userid);
+    })
+    socket.on('disconnect',function(){
+      socket.broadcast.to(roomid).emit('user-disconnected',userid);
+    })
   })
   //socket.emit('joined-room',"okay now what's next?");
 });
