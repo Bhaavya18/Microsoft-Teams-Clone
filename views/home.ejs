@@ -6,12 +6,22 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   </head>
   <body>
-    welcome to home
     <button class="start" onclick="startMeeting()">Start Meeting</button>
+    <br>
+    <br>
+    <input type="text" name="" placeholder="Enter Room ID">
+    <button class="join" onclick="joinMeeting()">Join Now</button>
     <script type="text/javascript">
       const ROOM_ID = "<%= roomid %>";
       function startMeeting(){
         location.assign(`/${ROOM_ID}`);
+      }
+      function joinMeeting(){
+        let rid=$('input');
+        if(rid.val().length!=0){
+          location.assign(`/${rid.val()}`);
+          rid.val('');
+        }
       }
     </script>
   </body>

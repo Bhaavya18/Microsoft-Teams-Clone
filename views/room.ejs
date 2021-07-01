@@ -9,13 +9,16 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script type="text/javascript">
     const ROOM_ID = "<%= roomid %>";
+    const username="<%= username %>"
+    const audioON="<%= audioON %>"
+    const videoON="<%= videoON %>"
   </script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
   <!--google fonts-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
@@ -30,6 +33,9 @@
       </div>
       <div class="chat-window">
         <ul class="messages">
+
+        </ul>
+        <ul class="participants">
 
         </ul>
       </div>
@@ -54,10 +60,10 @@
       </button>
     </div>
     <div class="right-side controls">
-      <button class="control-buttons right__buttons">
+      <button class="control-buttons right__buttons" onclick="showParticipants()">
         <i class="fas fa-users"></i>
       </button>
-      <button class="control-buttons right__buttons">
+      <button class="control-buttons right__buttons" onclick="showChat()">
         <i class="fas fa-comment-alt"></i>
       </button>
     </div>

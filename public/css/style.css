@@ -124,7 +124,7 @@ input:focus, textarea:focus, select:focus {
   outline: none;
 }
 
-.message {
+.message{
   list-style: none;
   color: #202124;
   font-size: 15px;
@@ -133,6 +133,16 @@ input:focus, textarea:focus, select:focus {
 .chat__time{
   color: #5f6368;
   font-size:12px;
+}
+/*particpants*/
+.participants{
+  display:none;
+}
+.plist{
+  list-style:none;
+  line-height: 35px;
+  font-size: 17px;
+  font-family: 'Roboto', sans-serif;
 }
 /*audio controls*/
 .stop{
