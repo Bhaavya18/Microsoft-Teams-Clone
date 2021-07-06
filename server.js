@@ -12,8 +12,13 @@ const peerServer = ExpressPeerServer(server, { //peer server handles webRTC sign
   debug: true
 });
 const bodyParser = require("body-parser");
-const {userJoined,getCurrentUser,userLeft,getParticipants}=require('./utils/user.js')
-const formatMessage=require('./utils/message.js');
+const {
+  userJoined,
+  getCurrentUser,
+  userLeft,
+  getParticipants
+} = require('./utils/user.js')
+const formatMessage = require('./utils/message.js');
 app.use('/peerjs', peerServer);
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
@@ -35,6 +40,11 @@ app.get('/:roomid', function(req, res) {
 // app.get('/:roomid',function(req,res){
 //   res.render('room',{roomid:req.params.roomid});
 // });
+app.get('/Chat/:roomid', function(req, res) {
+  res.render('chat-login', {
+    roomid: req.params.roomid
+  });
+})
 app.post('/:roomid', function(req, res) {
   const name = req.body.name;
   let audioCheck = "on";
@@ -51,32 +61,67 @@ app.post('/:roomid', function(req, res) {
     videoON: videoCheck
   });
 });
-
+app.post('/Chat/:roomid', function(req, res) {
+  const name=req.body.name;
+  res.render('chat', {
+    roomid: req.params.roomid,
+    username:name,
+  });
+})
 io.on('connection', function(socket) { //handshake pipeline for bidirectional communication b/w client and server
-  socket.on('joined-room', function(roomid, userid,username) { //listen to message sent by client ROOM_ID info
-    const user=userJoined(roomid,userid,username);
+  socket.on('joined-room', function(roomid, userid, username) { //listen to message sent by client ROOM_ID info
+    const user = userJoined(roomid, userid, username);
     socket.join(roomid);
     socket.broadcast.to(roomid).emit('user-connected', userid); //braodcast will emit message to all the clients except to the new user
     //send participants list
-    io.to(roomid).emit('user-info',getParticipants(roomid));
+    io.to(roomid).emit('user-info', getParticipants(roomid));
     //chatting
-    socket.on('message', function(message,userid) {
-      const user=getCurrentUser(userid);
-      io.to(user.roomid).emit('createMessage',formatMessage(user.name,message));
+    socket.on('message', function(message, userid) {
+      const user = getCurrentUser(userid);
+      io.to(user.roomid).emit('createMessage', formatMessage(user.name, message));
     });
     //disconnect
     socket.on('force-disconnect', function() {
       userLeft(userid);
-      io.to(roomid).emit('user-info',getParticipants(roomid));
+      io.to(roomid).emit('user-info', getParticipants(roomid));
       socket.broadcast.to(roomid).emit('user-disconnected', userid);
     })
     socket.on('disconnect', function() {
       userLeft(userid);
-      io.to(roomid).emit('user-info',getParticipants(roomid));
+      io.to(roomid).emit('user-info', getParticipants(roomid));
       socket.broadcast.to(roomid).emit('user-disconnected', userid);
     })
   })
-  //socket.emit('joined-room',"okay now what's next?");
+  //chat room
+  //join chat room
+  socket.on('joinChatRoom',function(username,roomid,rname){
+    const user=userJoined(roomid,socket.id,username);
+    socket.join(user.roomid);
+    socket.emit('message-send',formatMessage('Bot',"welcome to chat room"));
+    //a new user joins
+    socket.broadcast.to(user.roomid).emit('message-send',formatMessage('Bot',`${user.name} has joined the chat`));
+    //user info being Send
+    io.to(user.roomid).emit('roomUsers',{
+      room:user.roomid,
+      users:getParticipants(user.roomid)
+    });
+  })
+  //message from client to server
+  socket.on('chat-message',function(msg){
+    const user=getCurrentUser(socket.id);
+    io.to(user.roomid).emit('message-send',formatMessage(user.name,msg));
+  })
+  socket.on('disconnect',function(){
+    const user=userLeft(socket.id);
+    if(user){
+        io.to(user.roomid).emit('message-send',formatMessage('Bot',`${user.name} has left the chat`));
+        //user info being Send
+        io.to(user.roomid).emit('roomUsers',{
+          room:user.roomid,
+          users:getParticipants(user.roomid)
+        });
+    }
+  })
 });
 let port = process.env.PORT;
 if (port == null || port == "") {

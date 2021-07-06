@@ -10,7 +10,7 @@ function getCurrentUser(userid){
 function userLeft(userid){
   const idx=users.findIndex(user=> user.id==userid);
   if(idx !==-1)
-  users.splice(idx,1);
+  return users.splice(idx,1)[0];
 }
 function getParticipants(roomid){
   return users.filter(user=> user.roomid==roomid);

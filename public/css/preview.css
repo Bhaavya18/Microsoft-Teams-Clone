@@ -1,3 +1,11 @@
+body {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: #7f5a83;
+}
+
 .box {
   width: 23rem;
   height: 25rem;
@@ -9,4 +17,15 @@
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  background-color: white;
+  font-size: 17px;
+}
+
+.submit__btn {
+  width: 284px;
+  margin-top: 100px;
+}
+
+.name__input {
+  margin-bottom: 30px;
 }

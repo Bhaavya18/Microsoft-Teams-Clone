@@ -3,25 +3,17 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Preview</title>
+  <title>Chat Login</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/preview.css">
 </head>
 
-<body style="background-image:url('https://source.unsplash.com/collection/87992970')">
+<body>
   <div class="box">
-    <form action="/<%=roomid%>" method="post">
+    <form action="/Chat/<%=roomid%>" method="post">
       <div class="form-group">
         <label>Your Name</label>
         <input type="text" name="name" class="form-control name__input" placeholder="Enter your name" required>
-      </div>
-      <div class="form-group form-check">
-        <input type="checkbox" name="audio"class="form-check-input">
-        <label class="form-check-label" for="exampleCheck1">Do not connect my audio</label>
-      </div>
-      <div class="form-group form-check">
-        <input type="checkbox" name="video" class="form-check-input">
-        <label class="form-check-label" for="exampleCheck1">Turn off my video</label>
       </div>
       <button type="submit" class="btn btn-primary submit__btn">Submit</button>
     </form>
