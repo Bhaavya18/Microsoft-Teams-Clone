@@ -113,10 +113,10 @@ function currentTime() {
   }
   return obj;
 }
-
+timer();
 function timer() {
   var obj = currentTime();
-  document.getElementById('time').innerHTML = time.hms;
+  document.getElementById('time').innerHTML = obj.hms;
   setTimeout(timer, 1000);
 }
 
