@@ -17,7 +17,7 @@
   <div class="chat-container">
     <header class="chat-header">
       <h1>ChatRoom</h1>
-      <a href="/<%=roomid%>" class="btn">Join Meeting</a>
+      <a href="/<%=roomid%>?username=<%=username%>" class="btn">Join Meeting</a>
       <a href="/" class="btn">Leave Room</a>
     </header>
     <main class="chat-main">
@@ -29,13 +29,22 @@
         </ul>
       </div>
       <div class="chat-messages">
+        <% newListItems.forEach(function(element){  %>
+          <div class="message">
+            <p class="meta"><%=element.username%> <span><%=element.time%></span></p>
+            <p class="text">
+              <%=element.text%>
+            </p>
+          </div>
+      <%  }) %>
       </div>
     </main>
     <div class="chat-form-container">
-      <form id="chat-form">
+      <form id="chat-form" action="/Chat/<%=roomid%>/<%=username%>" method="post">
         <input
           id="msg"
           type="text"
+          name="msg"
           placeholder="Enter Message"
           required
           autocomplete="off"

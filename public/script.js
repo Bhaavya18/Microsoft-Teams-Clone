@@ -116,7 +116,7 @@ function currentTime() {
 
 function timer() {
   var obj = currentTime();
-  document.getElementById('time').innerHTML = obj.hms;
+  document.getElementById('time').innerHTML = time.hms;
   setTimeout(timer, 1000);
 }
 
@@ -173,7 +173,7 @@ function setVideoOn() {
 
 function leaveMeeting() {
   socket.emit('force-disconnect');
-  location.assign('/');
+  location.assign('/Chat/'+`${ROOM_ID}/`+`${username}`);
 }
 //particpants list
 function showParticipants(){

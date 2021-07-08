@@ -89,6 +89,7 @@ footer {
 .right {
   display: flex;
   flex-direction: column;
+  height: 85vh;
 }
 
 .main__header {
@@ -103,7 +104,7 @@ footer {
 
 .chat-window {
   flex-grow: 1;
-  max-height: 450px;
+  max-height: 70vh;
   overflow-y: auto;
 }
 
