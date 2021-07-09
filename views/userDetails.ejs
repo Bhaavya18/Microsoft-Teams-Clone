@@ -6,6 +6,9 @@
   <title>Preview</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/preview.css">
+  <script type="text/javascript">
+    const username="<%=username%>"
+  </script>
 </head>
 
 <body style="background-image:url('https://source.unsplash.com/collection/87992970')">
@@ -13,7 +16,11 @@
     <form action="/<%=roomid%>" method="post">
       <div class="form-group">
         <label>Your Name</label>
+        <% if(typeof username === 'undefined'){ %>
+        <input type="text" name="name" class="form-control name__input" required>
+      <% }else{ %>
         <input type="text" name="name" class="form-control name__input" value="<%=username%>" readonly="readonly">
+      <% } %>
       </div>
       <div class="form-group form-check">
         <input type="checkbox" name="audio"class="form-check-input">
