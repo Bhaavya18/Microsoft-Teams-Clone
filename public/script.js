@@ -4,9 +4,9 @@ const myVideo = document.createElement('video');
 const peer = new Peer();
 let myid;
 peer.on('open', function(userid) { //connection established
-  socket.emit('joined-room', ROOM_ID, userid,username);
+  socket.emit('joined-room', ROOM_ID, userid, username);
   // console.log("my id " + userid);
-  myid=userid;
+  myid = userid;
 });
 let myVideoStream;
 const peers = {};
@@ -17,10 +17,10 @@ navigator.mediaDevices.getUserMedia({
   myVideoStream = stream;
   myVideo.muted = true;
   addVideo(myVideo, stream);
-  if (audioON.localeCompare("off")==0){
+  if (audioON.localeCompare("off") == 0) {
     muteUnmute();
   }
-  if (videoON.localeCompare("off")==0){
+  if (videoON.localeCompare("off") == 0) {
     videoOnOff();
   }
   peer.on('call', (call) => {
@@ -33,7 +33,7 @@ navigator.mediaDevices.getUserMedia({
   let msg = $('input');
   $('html').keydown(function(e) {
     if (e.which == 13 && msg.val().length != 0) { //if enter key is pressed and the text is not empty
-      socket.emit('message', msg.val(),myid);
+      socket.emit('message', msg.val(), myid);
       msg.val(''); //after message is sent again the input value has to be set to empty
     }
   });
@@ -53,7 +53,7 @@ socket.on('user-disconnected', function(userid) {
   if (peers[userid])
     peers[userid].close();
 })
-socket.on('user-info',function(users){
+socket.on('user-info', function(users) {
   document.querySelector('.participants').innerHTML = '';
   users.forEach((user) => {
     const li = document.createElement('li');
@@ -84,40 +84,41 @@ function addVideo(video, stream) {
   //video.mute=true;
   videoDisplay.append(video);
 }
-timer();
 
-function currentTime() {
-  var currentTime = new Date()
-  var hours = currentTime.getHours()
-  var minutes = currentTime.getMinutes()
-  var sec = currentTime.getSeconds()
-  if (minutes < 10) {
-    minutes = "0" + minutes
+//stopwatch->time elapsed
+var hr = 0;
+var min = 0;
+var sec = 0;
+timerCycle();
+function timerCycle() {
+  sec = parseInt(sec);
+  min = parseInt(min);
+  hr = parseInt(hr);
+
+  sec = sec + 1;
+
+  if (sec == 60) {
+    min = min + 1;
+    sec = 0;
   }
-  if (sec < 10) {
-    sec = "0" + sec
+  if (min == 60) {
+    hr = hr + 1;
+    min = 0;
+    sec = 0;
   }
-  if (hours < 10) {
-    hours = "0" + hours;
+
+  if (sec < 10 || sec == 0) {
+    sec = '0' + sec;
   }
-  var hm_str = hours + ":" + minutes;
-  var t_str = hm_str + ":" + sec + " ";
-  if (hours > 11) {
-    t_str += "PM";
-  } else {
-    t_str += "AM";
+  if (min < 10 || min == 0) {
+    min = '0' + min;
   }
-  var obj = {
-    hm: hm_str,
-    hms: t_str
+  if (hr < 10 || hr == 0) {
+    hr = '0' + hr;
   }
-  return obj;
-}
-timer();
-function timer() {
-  var obj = currentTime();
-  document.getElementById('time').innerHTML = obj.hms;
-  setTimeout(timer, 1000);
+
+  document.getElementById('time').innerHTML = hr + ':' + min + ':' + sec;
+  setTimeout("timerCycle()", 1000);
 }
 
 function scrollToBottom() {
@@ -173,17 +174,18 @@ function setVideoOn() {
 
 function leaveMeeting() {
   socket.emit('force-disconnect');
-  location.assign('/Chat/'+`${ROOM_ID}/`+`${username}`);
+  location.assign('/Chat/' + `${ROOM_ID}/` + `${username}`);
 }
 //particpants list
-function showParticipants(){
-  document.querySelector('.chat__heading').innerText="Participants";
+function showParticipants() {
+  document.querySelector('.chat__heading').innerText = "Participants";
   $('#chat__message').hide();
   $('.messages').hide();
   $('.participants').show();
 }
-function showChat(){
-  document.querySelector('.chat__heading').innerText="In-call messages";
+
+function showChat() {
+  document.querySelector('.chat__heading').innerText = "In-call messages";
   $('.participants').hide();
   $('#chat__message').show();
   $('.messages').show();
