@@ -13,7 +13,7 @@ socket.on('roomUsers',function(user){
 socket.on('message-send',function(room){
   setTimeout(function(){
     window.location.replace("/Chat/"+`${room}/`+`${username}`);
-  }, 1500);
+  }, 2000);
 })
 textInput.addEventListener('submit',function(e){
   let msg=$('#msg').val();
