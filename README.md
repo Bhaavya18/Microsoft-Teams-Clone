@@ -40,3 +40,6 @@ HTML, CSS, Bootstrap, JavaScript, jQuery, Node.js, Express.js, EJS, peer.js, soc
  - Everyday in the teams daily standup channel we provided updates which comprised of what we were doing  yesterday?, what we will be working on today? and any blockers  that we are facing?
  - To track our progress we made use of kanban board which had 3  buckets -proposed, in progress and completed tasks.
  - The features that I implemented during a sprint were reviewed by  the mentors in the weekly meetings and we retrospected what  went well during the sprint and what else better can be done.
+
+## Web Application link
+https://gentle-tor-88958.herokuapp.com
