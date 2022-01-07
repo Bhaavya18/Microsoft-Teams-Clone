@@ -26,9 +26,9 @@ HTML, CSS, Bootstrap, JavaScript, jQuery, Node.js, Express.js, EJS, peer.js, soc
  ![preview](https://user-images.githubusercontent.com/53914778/125445752-4551dbd3-d5b4-4f3c-922a-af2c1d423db9.JPG)
 
  - Now the user will be able to see meeting room, he/she can send messages to the other participants is the meeting and can also view the names of the other participants that are in the meeting.
-![Meeting room](https://user-images.githubusercontent.com/53914778/125446504-828fd2d3-3bde-408a-8167-eda49d750a74.JPG)
+![Screenshot (46)](https://user-images.githubusercontent.com/53914778/148511179-21e379b7-da63-49e6-8279-7422f6c184f0.png)
  - To directly invite other participants to join the meeting without joining the chat room first, the meeting link displayed on the top can be shared with them.
-![arrow](https://user-images.githubusercontent.com/53914778/125447306-50dd57fc-f57f-4805-8769-c2ecb2f8bbca.JPG)
+![Screenshot (47)_LI](https://user-images.githubusercontent.com/53914778/148511374-e755fea6-88bf-48a4-9d6e-79ae802f2283.jpg)
  - To end the call click on call slash button.
  - After the user leaves the meeting he/she will be again directed to chat room where he/she can see all the messages that were sent before, during and after the meeting.
  - The user can copy room id and save it with him/her so, that in future if he/she again wants to join that room and see the messages then in the homepage he/she can enter that same room id, click on join chat room and again join that same room and view the past messages and also can send new messages in the same room.
